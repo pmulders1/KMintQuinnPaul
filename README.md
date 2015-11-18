@@ -1,2 +1,0 @@
-# KMintQuinnPaul
-Kmint
