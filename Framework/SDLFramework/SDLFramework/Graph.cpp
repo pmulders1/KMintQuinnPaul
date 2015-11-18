@@ -158,7 +158,7 @@ void Graph::Draw(){
 
 vector<Vertex*> Graph::Astar(){
 	path.clear();
-	openList.clear();
+	openList = std::priority_queue<pair<float, Vertex*>, std::vector<pair<float, Vertex*>>, cmp>();
 
 	for (size_t i = 0; i < graph.size(); i++){
 		graph[i]->g = 9999;
@@ -168,11 +168,11 @@ vector<Vertex*> Graph::Astar(){
 		graph[i]->inOpenList = false;
 	}
 	current->g = 0;
-	openList.push_back(current);
-	Vertex* temp;
+	openList.push(make_pair(current->f(),current));
+	pair<float,Vertex*> temp;
 
 	while (openList.size() != 0){
-		temp = openList[0];
+		/*temp = openList[0];
 		int pos = 0;
 		for (size_t i = 1; i < openList.size(); i++)
 		{
@@ -181,26 +181,28 @@ vector<Vertex*> Graph::Astar(){
 				pos = i;
 			}
 		}
-		openList.erase(openList.begin() + pos);
+		openList.erase(openList.begin() + pos);*/
 
-		temp->inClosedList = true;
+		temp = openList.top();
+		openList.pop();
 
-		if (temp == last){
+		temp.second->inClosedList = true;
+
+		if (temp.second == last){
 			break;
 		}
 
-		for each (Vertex* var in temp->partners)
+		for each (Vertex* var in temp.second->partners)
 		{
 			if (!var->inClosedList){
-			float newCost = temp->g + temp->BerekenAfstand(temp, var);
+				float newCost = temp.second->g + temp.second->BerekenAfstand(temp.second, var);
 				if (newCost < var->g || !var->inOpenList){ // ook bool
 					var->g = newCost;
 					var->h = var->BerekenAfstand(var, last);
-					var->parent = temp;
-					openList.push_back(var);
+					var->parent = temp.second;
 					if (!var->inOpenList){
 						var->inOpenList = true;
-						openList.push_back(var);
+						openList.push(make_pair(var->f(),var));
 					}
 				}
 			}

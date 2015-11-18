@@ -21,11 +21,11 @@ public:
 
 	struct cmp
 	{
-		bool operator()(pair<float, Vertex*> a, pair<float, Vertex*> b) { return a.first < b.first; }
+		bool operator()(pair<float, Vertex*> a, pair<float, Vertex*> b) { return a.first > b.first; }
 	};
 
-	//std::priority_queue<pair<float, Vertex*>, std::vector<pair<float, Vertex*>>, cmp> openList;
-	vector<Vertex*> openList;
+	std::priority_queue<pair<float, Vertex*>, std::vector<pair<float, Vertex*>>, cmp> openList;
+	//vector<Vertex*> openList;
 
 	Vertex* current;
 	Vertex* last;
