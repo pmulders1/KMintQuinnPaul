@@ -8,8 +8,13 @@ using namespace std;
 Graph::Graph(FWApplication* app)
 {
 	application = app;
-	cow = application->LoadTexture("./../Resources/cow-1.png");
-	rabbit = application->LoadTexture("./../Resources/rabbit-2.png");
+	
+	pill = new Entity(application->LoadTexture("./../Resources/pill.png"), 50, 50);
+	weapon = new Entity(application->LoadTexture("./../Resources/gun-metal.png"), 50, 50);
+	cow = new Entity(application->LoadTexture("./../Resources/cow-1.png"), 75, 75, pill, this, application->LoadTexture("./../Resources/cow-mad.png"));
+	rabbit = new Entity(application->LoadTexture("./../Resources/rabbit-2.png"), 75, 75, weapon, this, application->LoadTexture("./../Resources/rabbit-mad.png"));
+	pill->partner = rabbit;
+	weapon->partner = cow;
 
 	Vertex* v = new Vertex(50, 50, "A");
 	graph.push_back(v);
@@ -127,8 +132,10 @@ Graph::Graph(FWApplication* app)
 	v19->addPartner(v21, edges);
 	v20->addPartner(v22, edges);
 
-	current = v;
-	last = v21;
+	cow->current = v;
+	rabbit->current = v21;
+	pill->current = v16;
+	weapon->current = v8;
 }
 
 void Graph::Draw(){
@@ -152,23 +159,46 @@ void Graph::Draw(){
 		application->DrawLine(edges[i].startXpos, edges[i].startYpos, edges[i].endXpos, edges[i].endYpos);
 	}
 
-	application->DrawTexture(cow, current->getCenterPoint().first, current->getCenterPoint().second, 75, 75);
-	application->DrawTexture(rabbit, last->getCenterPoint().first, last->getCenterPoint().second, 75, 75);
+	application->DrawTexture(pill->currtext, pill->current->getCenterPoint().first, pill->current->getCenterPoint().second, pill->xSize, pill->ySize);
+	application->DrawTexture(weapon->currtext, weapon->current->getCenterPoint().first, weapon->current->getCenterPoint().second, weapon->xSize, weapon->ySize);
+	application->DrawTexture(cow->currtext, cow->current->getCenterPoint().first, cow->current->getCenterPoint().second, cow->xSize, cow->ySize);
+	application->DrawTexture(rabbit->currtext, rabbit->current->getCenterPoint().first, rabbit->current->getCenterPoint().second, rabbit->xSize, rabbit->ySize);
 }
 
-vector<Vertex*> Graph::Astar(){
+void Graph::ClearLists(){
+	path.clear();
+	openList = std::priority_queue<pair<float, Vertex*>, std::vector<pair<float, Vertex*>>, cmp>();
+
+	for (size_t i = 0; i < graph.size(); i++){
+		graph[i]->parent = nullptr;
+		graph[i]->inClosedList = false;
+		graph[i]->inOpenList = false;
+	}
+}
+
+void Graph::Update(){
+	cow->Update();
+	rabbit->Update();
+}
+
+void Graph::Collision(){
+	cow->Collision();
+	rabbit->Collision();
+}
+
+vector<Vertex*> Graph::Astar(Entity* chaser, Entity* chased){
 	path.clear();
 	openList = std::priority_queue<pair<float, Vertex*>, std::vector<pair<float, Vertex*>>, cmp>();
 
 	for (size_t i = 0; i < graph.size(); i++){
 		graph[i]->g = 9999;
-		graph[i]->h = graph[i]->BerekenAfstand(graph[i], last);
+		graph[i]->h = graph[i]->BerekenAfstand(graph[i], chased->current);
 		graph[i]->parent = nullptr;
 		graph[i]->inClosedList = false;
 		graph[i]->inOpenList = false;
 	}
-	current->g = 0;
-	openList.push(make_pair(current->f(),current));
+	chaser->current->g = 0;
+	openList.push(make_pair(chaser->current->f(),chaser->current));
 	pair<float,Vertex*> temp;
 
 	while (openList.size() != 0){
@@ -188,7 +218,7 @@ vector<Vertex*> Graph::Astar(){
 
 		temp.second->inClosedList = true;
 
-		if (temp.second == last){
+		if (temp.second == chased->current){
 			break;
 		}
 
@@ -198,7 +228,7 @@ vector<Vertex*> Graph::Astar(){
 				float newCost = temp.second->g + temp.second->BerekenAfstand(temp.second, var);
 				if (newCost < var->g || !var->inOpenList){ // ook bool
 					var->g = newCost;
-					var->h = var->BerekenAfstand(var, last);
+					var->h = var->BerekenAfstand(var, chased->current);
 					var->parent = temp.second;
 					if (!var->inOpenList){
 						var->inOpenList = true;
@@ -209,11 +239,12 @@ vector<Vertex*> Graph::Astar(){
 		}
 
 	}
-	Vertex* c = last;
+	Vertex* c = chased->current;
 	while (c != nullptr){
 		path.push_back(c);
 		c = c->parent;
 	}
+	path.erase(path.end() - 1);
 	return path;
 }
 

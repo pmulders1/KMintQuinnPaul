@@ -84,23 +84,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChaseState.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityState.cpp" />
+    <ClCompile Include="FleeState.cpp" />
     <ClCompile Include="FWApplication.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="StateFactory.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="WanderingState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChaseState.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityState.h" />
+    <ClInclude Include="FleeState.h" />
     <ClInclude Include="FWApplication.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateFactory.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="WanderingState.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SDLFramework.rc" />

@@ -12,6 +12,18 @@
     <Filter Include="Week1">
       <UniqueIdentifier>{6469432c-2a1e-411f-a745-f6b8fe556dad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Finite State Machine">
+      <UniqueIdentifier>{fe25a1eb-3bb2-46a2-8e76-a0b374692108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\A%2a">
+      <UniqueIdentifier>{15167470-3618-4964-8763-b2176637c800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Finite State Machine">
+      <UniqueIdentifier>{cc64c094-586b-4172-a6c9-e768ca7f9ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\A%2a">
+      <UniqueIdentifier>{4c768efe-88fb-441e-8d3b-11d82f37dd33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -20,14 +32,32 @@
     <ClCompile Include="FWApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Edge.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\A%2a</Filter>
     </ClCompile>
     <ClCompile Include="Graph.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\A%2a</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Source Files\A%2a</Filter>
+    </ClCompile>
+    <ClCompile Include="StateFactory.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityState.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderingState.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaseState.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="FleeState.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,13 +76,34 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="EntityState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="StateFactory.h">
+      <Filter>Header Files\Finite State Machine</Filter>
     </ClInclude>
     <ClInclude Include="Edge.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\A%2a</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files\A%2a</Filter>
     </ClInclude>
     <ClInclude Include="Graph.h">
+      <Filter>Header Files\A%2a</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="WanderingState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="FleeState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

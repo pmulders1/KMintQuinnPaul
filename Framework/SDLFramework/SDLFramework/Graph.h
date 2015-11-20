@@ -4,6 +4,7 @@
 #include "Edge.h"
 #include "FWApplication.h"
 #include <queue>
+#include "Entity.h"
 using namespace std;
 class Graph
 {
@@ -13,12 +14,6 @@ public:
 
 	vector <Vertex*> path;
 
-	
-	static bool sortByF(Vertex* lhs, Vertex* rhs) 
-	{
-		return lhs->f() < rhs->f();
-	}
-
 	struct cmp
 	{
 		bool operator()(pair<float, Vertex*> a, pair<float, Vertex*> b) { return a.first > b.first; }
@@ -27,16 +22,18 @@ public:
 	std::priority_queue<pair<float, Vertex*>, std::vector<pair<float, Vertex*>>, cmp> openList;
 	//vector<Vertex*> openList;
 
-	Vertex* current;
-	Vertex* last;
-
 	FWApplication* application;
 
-	SDL_Texture* cow;
-	SDL_Texture* rabbit;
+	Entity* cow;
+	Entity* rabbit;
+	Entity* pill;
+	Entity* weapon;
 
 	Graph(FWApplication* app);
 	void Draw();
-	vector<Vertex*> Astar();
+	void Update();
+	void Collision();
+	void ClearLists();
+	vector<Vertex*> Astar(Entity* chaser, Entity* chased);
 	~Graph();
 };

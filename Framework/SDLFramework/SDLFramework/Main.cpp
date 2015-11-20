@@ -7,6 +7,10 @@
 #include "Vertex.h"
 #include "Edge.h"
 #include "Graph.h"
+#include "StateFactory.h"
+#include <thread>
+
+using namespace std;
 
 int main(int args[])
 {
@@ -24,12 +28,12 @@ int main(int args[])
 	application->SetColor(Color(255, 10, 40, 255));
 
 	Graph graph = Graph(application);
-	vector<Vertex*> path = graph.Astar();
 	//while (true){}
 	while (application->IsRunning())
 	{
 		application->StartTick();
-
+		application->SetColor(Color(0, 0, 0, 255));
+		graph.Draw();
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
@@ -42,31 +46,18 @@ int main(int args[])
 				switch (event.key.keysym.sym){
 
 				default:
-					graph.current = path[path.size() -1];
-					path.erase(path.end() - 1);
-
-					if (graph.current == graph.last){
-						int temp = rand() % graph.graph.size();
-						while (graph.graph[temp] == graph.last){
-							temp = rand() % graph.graph.size();
-						}
-						graph.last = graph.graph[temp];
-						path = graph.Astar();
-					}
+					graph.Update();
+					graph.Collision();
 					break;
 				}
 			}
 		}
-		
-		application->SetColor(Color(0, 0, 0, 255));
-
-		graph.Draw();
-
 		application->SetColor(Color(255, 255, 255, 255));
 		
 		application->UpdateGameObjects();
 		application->RenderGameObjects();
 		application->EndTick();
+		//this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 		
 	return EXIT_SUCCESS;
