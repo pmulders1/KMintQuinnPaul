@@ -16,6 +16,11 @@ int main(int args[])
 {
 	srand(time(0));
 	//auto window = Window::CreateSDLWindow();
+
+	/*
+		Vraag: Volgorde van update heeft betreking op het bewegen en het A* algoritme
+	*/
+
 	auto application = new FWApplication();
 	if (!application->GetWindow())
 	{
