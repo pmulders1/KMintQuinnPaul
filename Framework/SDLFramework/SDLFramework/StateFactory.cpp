@@ -13,6 +13,10 @@ StateFactory::StateFactory()
 	dict.insert(make_pair(State::CHASE, new ChaseState()));
 	dict.insert(make_pair(State::WANDERING, new WanderingState()));
 	dict.insert(make_pair(State::IDLE, new IdleState()));
+	dict.insert(make_pair(State::SEARCHWEAPON, new SearchWeaponState()));
+	dict.insert(make_pair(State::SEARCHPILL, new SearchPillState()));
+	dict.insert(make_pair(State::SLEEPING, new SleepingState()));
+	dict.insert(make_pair(State::STATICOBJECT, new StaticObjectState()));
 }
 
 EntityState* StateFactory::ReturnState(State t){

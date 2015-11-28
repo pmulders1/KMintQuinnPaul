@@ -11,10 +11,22 @@ Graph::Graph(FWApplication* app)
 	
 	pill = new Entity(application->LoadTexture("./../Resources/pill.png"), 50, 50);
 	weapon = new Entity(application->LoadTexture("./../Resources/gun-metal.png"), 50, 50);
-	cow = new Entity(application->LoadTexture("./../Resources/cow-1.png"), 75, 75, pill, this, application->LoadTexture("./../Resources/cow-mad.png"), application->LoadTexture("./../Resources/cow-idle.png"));
-	rabbit = new Entity(application->LoadTexture("./../Resources/rabbit-2.png"), 75, 75, weapon, this, application->LoadTexture("./../Resources/rabbit-mad.png"), application->LoadTexture("./../Resources/rabbit-idle.png"));
-	pill->partner = rabbit;
-	weapon->partner = cow;
+
+	cow = new Entity(application->LoadTexture("./../Resources/cow-1.png"), 75, 75, this, application->LoadTexture("./../Resources/cow-mad.png"), application->LoadTexture("./../Resources/cow-idle.png"), State::CHASE);
+	rabbit = new Entity(application->LoadTexture("./../Resources/rabbit-2.png"), 75, 75, this, application->LoadTexture("./../Resources/rabbit-mad.png"), application->LoadTexture("./../Resources/rabbit-idle.png"), State::WANDERING);
+	
+	cow->toChase = rabbit;
+	cow->name = "cow";
+	cow->sleepingText = application->LoadTexture("./../Resources/cow-sleeping.png");
+
+	rabbit->toChase = cow;
+	rabbit->powerup1 = pill;
+	rabbit->powerup2 = weapon;
+	rabbit->name = "rabbit";
+
+	rabbit->fleeChance = 40;
+	rabbit->weaponChance = 30;
+	rabbit->pillChance = 30;
 
 	Vertex* v = new Vertex(50, 50, "A");
 	graph.push_back(v);
@@ -177,8 +189,8 @@ void Graph::ClearLists(){
 }
 
 void Graph::Update(){
-	cow->Update();
 	rabbit->Update();
+	cow->Update();
 }
 
 void Graph::Collision(){

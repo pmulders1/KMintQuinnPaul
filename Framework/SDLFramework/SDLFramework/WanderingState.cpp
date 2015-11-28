@@ -4,7 +4,7 @@ WanderingState::WanderingState()
 {
 }
 
-void WanderingState::Enter(){
+void WanderingState::Enter(Entity* ent){
 
 }
 
@@ -13,7 +13,7 @@ void WanderingState::Execute(Entity* ent){
 	ent->current = ent->current->partners[r];
 }
 
-void WanderingState::Exit(){
+void WanderingState::Exit(Entity* ent){
 
 }
 

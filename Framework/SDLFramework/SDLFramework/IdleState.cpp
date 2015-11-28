@@ -5,18 +5,19 @@ IdleState::IdleState()
 {
 }
 
-
-IdleState::~IdleState()
-{
+void IdleState::Enter(Entity* ent){
+	ent->currtext = ent->idleText;
 }
-
-void IdleState::Enter(){}
 
 void IdleState::Execute(Entity* ent){
 	
 }
 
-void IdleState::Exit(){
+void IdleState::Exit(Entity* ent){
+	ent->currtext = ent->normaltext;
+}
 
+IdleState::~IdleState()
+{
 }
 

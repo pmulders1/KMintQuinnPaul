@@ -6,6 +6,11 @@
 #include "FleeState.h"
 #include "ChaseState.h"
 #include "IdleState.h"
+#include "SearchPillState.h"
+#include "SearchWeaponState.h"
+#include "SleepingState.h"
+#include "StaticObjectState.h"
+
 using namespace std;
 class StateFactory
 {

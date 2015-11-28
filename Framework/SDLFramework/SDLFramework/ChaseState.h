@@ -6,9 +6,9 @@ class ChaseState : public EntityState
 public:
 	ChaseState();
 
-	virtual void Enter();
+	virtual void Enter(Entity* ent);
 	virtual void Execute(Entity* ent);
-	virtual void Exit();
+	virtual void Exit(Entity* ent);
 
 	~ChaseState();
 };

@@ -6,9 +6,9 @@ class IdleState : public EntityState
 public:
 	IdleState();
 
-	virtual void Enter();
+	virtual void Enter(Entity* ent);
 	virtual void Execute(Entity* ent);
-	virtual void Exit();
+	virtual void Exit(Entity* ent);
 
 	~IdleState();
 };

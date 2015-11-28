@@ -5,7 +5,7 @@ FleeState::FleeState()
 {
 }
 
-void FleeState::Enter(){
+void FleeState::Enter(Entity* ent){
 
 }
 
@@ -13,7 +13,7 @@ void FleeState::Execute(Entity* ent){
 
 }
 
-void FleeState::Exit(){
+void FleeState::Exit(Entity* ent){
 
 }
 

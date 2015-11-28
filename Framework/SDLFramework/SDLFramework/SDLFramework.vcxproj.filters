@@ -59,7 +59,19 @@
     <ClCompile Include="FleeState.cpp">
       <Filter>Source Files\Finite State Machine</Filter>
     </ClCompile>
+    <ClCompile Include="SearchPillState.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchWeaponState.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
     <ClCompile Include="IdleState.cpp">
+      <Filter>Source Files\Finite State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="SleepingState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObjectState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,11 +118,23 @@
     <ClInclude Include="FleeState.h">
       <Filter>Header Files\Finite State Machine</Filter>
     </ClInclude>
-    <ClInclude Include="IdleState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ChaseState.h">
       <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchPillState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchWeaponState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="SleepingState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObjectState.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
