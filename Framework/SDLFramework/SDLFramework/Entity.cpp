@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(SDL_Texture* normaltext, int xSize, int ySize, Entity* partner, Graph* graph, SDL_Texture* madtext) : madtext(madtext), normaltext(normaltext), xSize(xSize), ySize(ySize), partner(partner), graph(graph)
+Entity::Entity(SDL_Texture* normaltext, int xSize, int ySize, Entity* partner, Graph* graph, SDL_Texture* madtext, SDL_Texture* idleText) : madtext(madtext), idleText(idleText), normaltext(normaltext), xSize(xSize), ySize(ySize), partner(partner), graph(graph)
 {
 	this->currtext = normaltext;
 	this->stateType = State::WANDERING;
@@ -14,6 +14,14 @@ void Entity::Update(){
 }
 
 void Entity::Collision(){
+	// Bang worden
+	if (this->stateType == State::WANDERING && this->checkNeighbours() && this->partner->partner->stateType == State::CHASE){
+		this->stateType = State::IDLE;
+		this->currtext = idleText;
+		this->ChangeState(StateFactory::Instance()->ReturnState(this->stateType));
+	}
+
+
 	if (this->current == this->partner->partner->current && this->stateType == State::CHASE){
 		if (this->partner->partner->stateType == State::CHASE){
 			this->current = this->graph->graph[rand() % this->graph->graph.size()];
@@ -30,6 +38,7 @@ void Entity::Collision(){
 		this->graph->ClearLists();
 	}
 
+	//Oppaken wapen
 	if (this->current == this->partner->current && this->stateType == State::WANDERING){
 		this->stateType = State::CHASE;
 		this->currtext = madtext;
@@ -46,6 +55,16 @@ void Entity::ChangeState(EntityState* newState){
 	}
 	state = newState;
 	state->Enter();
+}
+
+bool Entity::checkNeighbours(){
+	for (size_t i = 0; i < this->current->partners.size(); i++)
+	{
+		if (this->partner->partner->current == this->current->partners[i]){
+			return true;
+		}
+	}
+	return false;
 }
 
 Entity::~Entity()

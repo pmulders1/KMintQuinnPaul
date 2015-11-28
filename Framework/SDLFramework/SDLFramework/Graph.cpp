@@ -11,8 +11,8 @@ Graph::Graph(FWApplication* app)
 	
 	pill = new Entity(application->LoadTexture("./../Resources/pill.png"), 50, 50);
 	weapon = new Entity(application->LoadTexture("./../Resources/gun-metal.png"), 50, 50);
-	cow = new Entity(application->LoadTexture("./../Resources/cow-1.png"), 75, 75, pill, this, application->LoadTexture("./../Resources/cow-mad.png"));
-	rabbit = new Entity(application->LoadTexture("./../Resources/rabbit-2.png"), 75, 75, weapon, this, application->LoadTexture("./../Resources/rabbit-mad.png"));
+	cow = new Entity(application->LoadTexture("./../Resources/cow-1.png"), 75, 75, pill, this, application->LoadTexture("./../Resources/cow-mad.png"), application->LoadTexture("./../Resources/cow-idle.png"));
+	rabbit = new Entity(application->LoadTexture("./../Resources/rabbit-2.png"), 75, 75, weapon, this, application->LoadTexture("./../Resources/rabbit-mad.png"), application->LoadTexture("./../Resources/rabbit-idle.png"));
 	pill->partner = rabbit;
 	weapon->partner = cow;
 

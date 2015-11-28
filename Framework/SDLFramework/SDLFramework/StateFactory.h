@@ -5,6 +5,7 @@
 #include "WanderingState.h"
 #include "FleeState.h"
 #include "ChaseState.h"
+#include "IdleState.h"
 using namespace std;
 class StateFactory
 {

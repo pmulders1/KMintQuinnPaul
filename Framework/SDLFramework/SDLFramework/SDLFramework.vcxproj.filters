@@ -59,6 +59,9 @@
     <ClCompile Include="FleeState.cpp">
       <Filter>Source Files\Finite State Machine</Filter>
     </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll" />
@@ -103,8 +106,11 @@
     <ClInclude Include="FleeState.h">
       <Filter>Header Files\Finite State Machine</Filter>
     </ClInclude>
-    <ClInclude Include="ChaseState.h">
+    <ClInclude Include="IdleState.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaseState.h">
+      <Filter>Header Files\Finite State Machine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

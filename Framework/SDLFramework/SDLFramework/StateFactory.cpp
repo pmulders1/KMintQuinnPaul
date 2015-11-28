@@ -12,6 +12,7 @@ StateFactory::StateFactory()
 {
 	dict.insert(make_pair(State::CHASE, new ChaseState()));
 	dict.insert(make_pair(State::WANDERING, new WanderingState()));
+	dict.insert(make_pair(State::IDLE, new IdleState()));
 }
 
 EntityState* StateFactory::ReturnState(State t){

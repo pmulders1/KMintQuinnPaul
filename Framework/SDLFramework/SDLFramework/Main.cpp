@@ -40,7 +40,7 @@ int main(int args[])
 		application->SetColor(Color(0, 0, 0, 255));
 		graph.Draw();
 		SDL_Event event;
-		while (SDL_PollEvent(&event))
+		/*while (SDL_PollEvent(&event))
 		{
 			switch (event.type)
 			{
@@ -56,13 +56,15 @@ int main(int args[])
 					break;
 				}
 			}
-		}
+		}*/
+		graph.Update();
+		graph.Collision();
 		application->SetColor(Color(255, 255, 255, 255));
 		
 		application->UpdateGameObjects();
 		application->RenderGameObjects();
 		application->EndTick();
-		//this_thread::sleep_for(std::chrono::milliseconds(1000));
+		this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 		
 	return EXIT_SUCCESS;

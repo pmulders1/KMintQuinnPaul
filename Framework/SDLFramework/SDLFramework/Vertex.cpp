@@ -1,4 +1,3 @@
-#include "Vertex.h"
 #include "Edge.h"
 
 Vertex::Vertex(int xPos, int yPos, string letter) : xPos(xPos), yPos(yPos), width(25), height(25), letter(letter)
