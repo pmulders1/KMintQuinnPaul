@@ -25,9 +25,19 @@ void Entity::Collision(){
 				r = rand() % this->graph->graph.size();
 			}
 			this->current = this->graph->graph[r];
+			
 			this->toChase->stateType = State::WANDERING;
 			this->toChase->ChangeState(StateFactory::Instance()->ReturnState(this->toChase->stateType));
 		}
+		if (this->toChase->state->turns > 5 && this->toChase->stateType == State::WANDERING){
+			this->toChase->CalculateChance(10, -5, -5);
+			cout << "Kansen van de " << this->toChase->name << " - Vluchten: " << this->toChase->fleeChance << "%; Zoeken pill: " << this->toChase->pillChance << "%; Zoeken wapen: " << this->toChase->weaponChance << "%;" << endl;
+		}
+		else if (this->toChase->state->turns <= 5 && this->toChase->stateType == State::WANDERING){
+			this->toChase->CalculateChance(-10, 5, 5);
+			cout << "Kansen van de " << this->toChase->name << " - Vluchten: " << this->toChase->fleeChance << "%; Zoeken pill: " << this->toChase->pillChance << "%; Zoeken wapen: " << this->toChase->weaponChance << "%;" << endl;
+		}
+
 		this->toChase->current = this->graph->graph[r];
 
 		if (this->toChase->hasPill){
@@ -41,6 +51,13 @@ void Entity::Collision(){
 	}
 	makeChoice();
 	if (this->stateType == State::SEARCHWEAPON && this->current == this->powerup2->current){
+		if (this->state->turns < 5){
+			this->CalculateChance(-5, 10, -5);
+		} else{
+			this->CalculateChance(5, -10, 5);
+		}
+		cout << "Kansen van de " << this->name << " - Vluchten: " << fleeChance << "%; Zoeken pill: " << pillChance << "%; Zoeken wapen: " << weaponChance << "%;" << endl;
+
 		this->stateType = State::CHASE;
 		this->ChangeState(StateFactory::Instance()->ReturnState(stateType));
 		int r = rand() % this->graph->graph.size();
@@ -50,6 +67,13 @@ void Entity::Collision(){
 		this->powerup2->current = this->graph->graph[r];
 	}
 	if (this->stateType == State::SEARCHPILL && this->current == this->powerup1->current){
+		if (this->state->turns < 5){
+			this->CalculateChance(-5, -5, 10);
+		} else{
+			this->CalculateChance(5, 5, -10);
+		}
+		cout << "Kansen van de " << this->name << " - Vluchten: " << fleeChance << "%; Zoeken pill: " << pillChance << "%; Zoeken wapen: " << weaponChance << "%;" << endl;
+
 		this->stateType = State::IDLE;
 		this->ChangeState(StateFactory::Instance()->ReturnState(stateType));
 		this->hasPill = true;
@@ -64,26 +88,7 @@ void Entity::Collision(){
 void Entity::makeChoice(){
 	//Stap 2: Checken of de haas de koe in de gaten heeft
 	if (this->stateType == State::WANDERING && this->checkClosely()){
-		// bepalen of het wapen of pil dichterbij licht
-		vector<Vertex*> weaponpath = graph->Astar(this, this->powerup2);
-		vector<Vertex*> pillpath = graph->Astar(this, this->powerup1);
-
-		// Eventueel als bijde paden langer zijn dan 5 of 6 ofzo de kans voor wandering omhoog gooien.
-		if (weaponpath.size() > 6 && pillpath.size() > 6){
-			this->CalculateChance(10, -5, -5);
-		}
-		// Als bijde paden onder de ondergrens zijn bepalen welke stats verhoogd moeten worden.
-		else {
-			// Als het wapen pad korter is stats voor het wapen pakken verhogen.
-			if (weaponpath.size() < pillpath.size()){
-				this->CalculateChance(-5, 10, -5);
-			}
-			// Ander de stats voor het pakken van de pil verhogen.
-			else {
-				this->CalculateChance(-5, -5, 10);
-			}
-		}
-		cout << "Kansen van de " << this->name << " - Vluchten: " << fleeChance << "%; Zoeken pill: " << pillChance << "%; Zoeken wapen: " << weaponChance << "%;" << endl;
+		cout << "Vooraf kansen: " << this->name << " - Vluchten: " << fleeChance << "%; Zoeken pill: " << pillChance << "%; Zoeken wapen: " << weaponChance << "%;" << endl;
 		int result = rand() % 100;
 		if (result <= fleeChance){
 			this->stateType = State::WANDERING;

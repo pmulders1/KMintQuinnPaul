@@ -6,7 +6,7 @@ SearchWeaponState::SearchWeaponState()
 }
 
 void SearchWeaponState::Enter(Entity* ent){
-
+	turns = 0;
 }
 
 void SearchWeaponState::Execute(Entity* ent){
@@ -16,6 +16,7 @@ void SearchWeaponState::Execute(Entity* ent){
 			ent->current = path[path.size() - 1];
 		}
 	}
+	turns++;
 }
 
 void SearchWeaponState::Exit(Entity* ent){

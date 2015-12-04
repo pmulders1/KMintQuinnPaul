@@ -6,7 +6,7 @@ SearchPillState::SearchPillState()
 }
 
 void SearchPillState::Enter(Entity* ent){
-
+	turns = 0;
 }
 
 void SearchPillState::Execute(Entity* ent){
@@ -16,6 +16,7 @@ void SearchPillState::Execute(Entity* ent){
 			ent->current = path[path.size() - 1];
 		}
 	}
+	turns++;
 }
 
 void SearchPillState::Exit(Entity* ent){
