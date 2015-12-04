@@ -104,13 +104,11 @@ void Entity::makeChoice(){
 }
 
 void Entity::CalculateChance(int flee, int weapon, int pill){
-	if (fleeChance + flee <= 90 && fleeChance + flee >= 5){
+	if (fleeChance + flee <= 90 && fleeChance + flee >= 5 
+			&& weaponChance + weapon <= 90 && weaponChance + weapon >= 5 
+			&& pillChance + pill <= 90 && pillChance + pill >= 5){
 		fleeChance += flee;
-	}
-	if (weaponChance + weapon <= 90 && weaponChance + weapon >= 5){
 		weaponChance += weapon;
-	}
-	if (pillChance + pill <= 90 && pillChance + pill >= 5){
 		pillChance += pill;
 	}
 }
